@@ -1,0 +1,212 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Segoe UI", Tahoma,
+        Geneva, Verdana, sans-serif;
+    background-color: #eefd97;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.container {
+    background-color: #eeeeee;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px
+        rgba(0, 0, 0, 0.1);
+    max-width: 550px;
+    width: 100%;
+}
+.title {
+    background-color: #a0fd94;
+    font-size: 32px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.image-upload {
+    text-align: center;
+}
+.upload-label {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 5px
+        rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.upload-label:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+.upload-label i {
+    margin-right: 8px;
+    font-size: 24px;
+}
+input[type="file"] {
+    display: none;
+}
+.output {
+    margin-top: 30px;
+    text-align: center;
+}
+.preview-label {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px
+        rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+img:hover {
+    transform: scale(1.05);
+}
+.controls {
+    margin-top: 30px;
+}
+.control-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+input[type="number"],
+input[type="range"],
+select {
+    width: 70%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: border-color 0.3s;
+}
+input[type="number"]:focus,
+input[type="range"]:focus,
+select:focus {
+    border-color: #007bff;
+}
+.quality-group {
+    position: relative;
+}
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 10px;
+    border-radius: 8px;
+    background: #ccc;
+    outline: none;
+    transition: background 0.3s;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    box-shadow: 0 2px 5px
+        rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+}
+.quality-group:hover
+    input[type="range"] {
+    background: #0056b3;
+}
+.quality-value {
+    position: absolute;
+    top: -1px;
+    left: calc(106% - 25px);
+    color: #ff0000;
+    font-size: 18px;
+    background-color: rgb(
+        136,
+        223,
+        169
+    );
+    padding: 4px 10px;
+    border-radius: 6px;
+    box-shadow: 0 px 5px
+        rgba(0, 0, 0, 0.2);
+}
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s,
+        transform 0.3s;
+    box-shadow: 0 4px 10px
+        rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+.download-button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s,
+        transform 0.3s;
+    box-shadow: 0 4px 10px
+        rgba(0, 0, 0, 0.2);
+}
+.download-button:hover {
+    background-color: #004180;
+    transform: scale(1.05);
+}
+#resizeUnit {
+    width: 60%;
+    font-size: 18px;
+    margin-right: 100px;
+}
+#pixel-dimensions,
+#percentage-dimensions,
+#pixel-height-dimensions {
+    display: flex;
+    align-items: center;
+}
+#pixel-dimensions span,
+#percentage-dimensions span,
+#pixel-height-dimensions span {
+    margin-left: 10px;
+    font-size: 18px;
+    color: #333;
+}

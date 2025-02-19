@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Compression</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+      }
+      .image-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .image-box {
+        width: 48%;
+        position: relative;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin-top: 10px;
+      }
+      .download-btn {
+        display: none;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="imageInput" name="file" accept="image/*" required />
+        <input type="range" id="qualitySlider" min="0" max="100" value="80" />
+        <span id="qualityValue">80%</span>
+        <button type="submit">Compress</button>
+      </form>
+
+      <div class="image-container">
+        <div class="image-box">
+          <p>Original Size: <span id="originalSize">0</span> KB</p>
+          <img id="originalImage" src="" alt="Original Image" style="display: none" />
+        </div>
+        <div class="image-box">
+          <p>Compressed Size: <span id="compressedSize">0</span> KB</p>
+          <img id="compressedImage" src="" alt="Compressed Image" style="display: none" />
+          <a id="downloadButton" class="download-btn" style="display: none">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("qualitySlider").addEventListener("input", function () {
+        document.getElementById("qualityValue").innerText = this.value + "%";
+      });
+
+      document.getElementById("imageInput").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+          // Display the file size of the uploaded image
+          const fileSizeKB = (file.size / 1024).toFixed(2);
+          document.getElementById("originalSize").innerText = fileSizeKB;
+
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function (e) {
+            document.getElementById("originalImage").src = e.target.result;
+            document.getElementById("originalImage").style.display = "block";
+          };
+        }
+      });
+
+      document.getElementById("uploadForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", document.getElementById("imageInput").files[0]);
+        formData.append("quality", document.getElementById("qualitySlider").value);
+
+        // Show loading state (optional)
+        document.getElementById("downloadButton").style.display = "none";
+        document.getElementById("compressedImage").style.display = "none";
+        document.getElementById("compressedSize").innerText = "0";
+
+        fetch("/compress", {
+          method: "POST",
+          body: formData
+        })
+          .then(response => response.blob())
+          .then(blob => {
+            // Create an object URL for the compressed image
+            const url = URL.createObjectURL(blob);
+            document.getElementById("compressedImage").src = url;
+            document.getElementById("compressedImage").style.display = "block";
+
+            // Display the compressed image size
+            const compressedSizeKB = (blob.size / 1024).toFixed(2);
+            document.getElementById("compressedSize").innerText = compressedSizeKB;
+
+            // Show the download button
+            document.getElementById("downloadButton").href = url;
+            document.getElementById("downloadButton").download = "compressed_image.jpg";
+            document.getElementById("downloadButton").style.display = "block";
+          })
+          .catch(error => {
+            console.error("Error:", error);
+          });
+      });
+    </script>
+  </body>
+</html>
